@@ -1,0 +1,30 @@
+
+
+Throttling :- 
+* Execute any task after a delay.
+- two ways to handle this 
+1. Manual Throttling. (code in the throttling.dart file)
+   - Create a class that takes a duration and a function to execute.
+   - Use a timer to control the execution of the function.
+   - The function will only execute if it is ready, and the timer will reset after the specified duration.
+2. Using a package (easy_debounce).
+
+Can be achieved using a package like easy_debounce 
+
+Debouncing set a timer and executeany task after that delay without new trigger.
+Package for throttling and debouncing in Flutter: https://pub.dev/packages/easy_debounce
+
+it is used for both throttling and debouncing
+* EasyRateLimit.rateLimit() = it records the last call and execute the last one.
+* EasyThrottle.throtltle()
+
+Difference between throttling and debouncing:
+Throttling : function executes then the timer starts and during the duration all the trigers are ignored.
+Debouncing : function executes after the only period of inacticvity, if the function is triggered again before
+ the timer ends, the timer resets. it can be used for search input, where you want to wait for the user to stop typing before making a request.
+
+
+ Leading Edge Vs Trailing Edge 
+ * Leading Edge: Executes on the first trigger.
+ * Trailing Edge: Executes after the duration.
+
