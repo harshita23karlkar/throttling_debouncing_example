@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:throttling_debouncing/services/easy_debounce.dart';
 import 'package:throttling_debouncing/services/throttling.dart';
 
 void main() {
@@ -13,22 +14,46 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Throttle throttle = Throttle(duration: const Duration(milliseconds: 500));
+  final Throttle throttle = Throttle(
+    duration: const Duration(milliseconds: 500),
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              throttle.call(() {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Button tapped!")));
-              });
-            },
-            child: Text("Tap me"),
-          ),
+        body: Builder(
+          builder:
+              (context) => SafeArea(
+                child: Column(
+                  children: [
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          throttle.call(() {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Button tapped!")),
+                            );
+                          });
+                        },
+                        child: const Text("Tap me"),
+                      ),
+                    ),
+                    CustomElevatedButton(
+                      action: () {
+                        throttle.call(() {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Button tapped!")),
+                          );
+                        });
+                      },
+                      keyName: "custom_button",
+                      child: const Text("Tap me"),
+                      duration: const Duration(milliseconds: 500),
+                    ),
+                  ],
+                ),
+              ),
         ),
       ),
     );

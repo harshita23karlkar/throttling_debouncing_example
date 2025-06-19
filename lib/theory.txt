@@ -16,6 +16,11 @@ Package for throttling and debouncing in Flutter: https://pub.dev/packages/easy_
 
 it is used for both throttling and debouncing
 * EasyRateLimit.rateLimit() = it records the last call and execute the last one.
+ EasyRateLimit().rateLimit(
+          '${widget.keyName ?? 'custom_button'}',
+          widget.duration,
+          () => widget.action(),
+        );
 * EasyThrottle.throtltle()
 
 Difference between throttling and debouncing:
